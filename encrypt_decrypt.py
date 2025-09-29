@@ -1,12 +1,11 @@
-from abstract_factory import CipherMethods, CipherABCData
+from cipher_abc import CipherMethods
 
-class InputToEncrypt(CipherMethods):
-    def __init__(self, data: CipherABCData) -> None:
-        self.data = data
+class EncryptDecrypt(CipherMethods):
+    def encrypt_data(self, **kwargs) -> None:
+        # encryption code
+        # return of encrypted string and adding status to object CipherData
+        pass
 
-    def encrypt_data(self, input_str) -> str:
-        self.data.text = input_str
-        return self.data.text
 
     def decrypt_data(self) -> str:
         pass

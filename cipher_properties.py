@@ -1,4 +1,4 @@
-from abstract_factory import CipherABCData
+from cipher_abc import CipherABCData
 
 class CipherData(CipherABCData):
     def __init__(self, text: str, rot_type: str, status: str):

@@ -12,9 +12,9 @@ class CipherMethods(ABC):
 
 @dataclass
 class CipherABCData(ABC):
-    text: str
-    rot_type: str
-    status: str
+    text: str | None
+    rot_type: str | None
+    status: str | None
 
 
 

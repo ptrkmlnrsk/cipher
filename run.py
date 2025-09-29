@@ -1,12 +1,15 @@
-from cipher_decipher import CipherData
-from encrypt_decrypt import InputToEncrypt
+from cipher_properties import CipherData
+from encrypt_decrypt import EncryptDecrypt
+from file_handler import FileHandler
 
 def main():
 
-    cipher_data = CipherData(text = 'test1', rot_type = 'encrypt', status = 'encrypted')
-    print(cipher_data.text)
-    encrypt1 = InputToEncrypt(cipher_data)
-    print(encrypt1.encrypt_data('blablalba'))
+    # tu powinna być fasada jako jedna klasa?
+
+    file_handler = FileHandler()
+    file_data = file_handler.read_file(input("Enter file path: "))
+    cipher_data = CipherData(file_data, "ROT13", "encrypt")
+    print("File contents:", cipher_data.text)
 
 if __name__ == '__main__':
     main()
