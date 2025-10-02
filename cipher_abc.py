@@ -2,6 +2,11 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 class CipherMethods(ABC):
+
+#    @abstractmethod
+#    def cipher_base(self):
+#        pass
+
     @abstractmethod
     def encrypt_data(self, input_str: str) -> str:
         # encrypting based on ROT
@@ -13,8 +18,7 @@ class CipherMethods(ABC):
 
 @dataclass
 class CipherOutput:
-    text: str
-    rot_type: str
-    status: str
-
+    text: str | None
+    rot_type: str | None
+    status: str | None
 
