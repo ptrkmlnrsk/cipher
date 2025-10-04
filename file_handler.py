@@ -1,4 +1,6 @@
 import json
+from typing import Any
+from dataclasses import asdict
 
 class FileHandler:
     def __init__(self):
@@ -10,12 +12,12 @@ class FileHandler:
             return file.read()
 
     @staticmethod
-    def write_file(encrypted_data: str, output_file_path: str):
+    def write_file(encrypted_data: Any, output_file_path: str):
         with open(output_file_path, "w") as file:
             #file.write(encrypted_data)
-            json.dump(encrypted_data, file)
+            json.dump(asdict(encrypted_data), file)
 
     @staticmethod
-    def append_to_file(encrypted_data: str, output_file_path: str):
-        with open(encrypted_data, "a") as file:
-            file.write(output_file_path)
+    def append_to_file(encrypted_data: Any, file_path: str):
+        with open(file_path, "a") as file:
+            json.dump(asdict(encrypted_data), file)

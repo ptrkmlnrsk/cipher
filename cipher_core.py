@@ -1,5 +1,3 @@
-from typing import Any
-
 def rot13_core(text: str=None, shift=13) -> str|list:
 
     cipher_core_output = []

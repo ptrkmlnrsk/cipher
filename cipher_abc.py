@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from typing import Any
 
 class CipherMethods(ABC):
 
@@ -13,7 +14,7 @@ class CipherMethods(ABC):
         pass
 
     @abstractmethod
-    def decrypt_data(self) -> str:
+    def decrypt_data(self, data: Any) -> str:
         pass
 
 @dataclass
@@ -22,7 +23,5 @@ class CipherOutput:
     rot_type: str | None
     status: str | None
 
-    def process(self):
-        pass
 
 
