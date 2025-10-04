@@ -22,3 +22,7 @@ class CipherOutput:
     rot_type: str | None
     status: str | None
 
+    def process(self):
+        pass
+
+
