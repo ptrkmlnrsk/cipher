@@ -1,8 +1,8 @@
 # facade
 
 class CipherManager:
-    def __init__(self):
-        pass
+    def __init__(self): # dependency injection z bufferem, file_handlere, ciperem
+        pass  
 
     def read_file(self):
         pass

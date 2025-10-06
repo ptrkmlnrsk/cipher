@@ -1,7 +1,6 @@
-from cipher_properties import CaesarRots, CipherOutput
+from src.cipher_properties import ROT13
 from file_handler import FileHandler
-from cipher_core import rot13_core
-from dataclasses import asdict
+
 
 def main():
 
@@ -9,18 +8,20 @@ def main():
     # zdefiniowac zeby ktos wpisl tu lub tu jakas litere i w zaleznosci od tego robi rota
 
     file_handler = FileHandler()
-    #file_data = file_handler.read_file(input("Enter file path: "))
-    file_data = file_handler.read_file('D:\\repos\\dump\\cipher\\test_cipher.txt')
-    encrypt_decrypt = CaesarRots()
+    encrypt_decrypt = ROT13()
 
-    encrypted = encrypt_decrypt.encrypt_data(input_str=file_data)
-    print(encrypted.text)
-    file_handler.write_file(encrypted, input("Output file path with extension: "))
+    encrypted_file = file_handler.read_file(r"D:\repos\cipher\test_cipher.json")
 
-    encrypt_decrypt.decrypt_data(encrypted)
-    print(encrypted.text)
+    print("Encrypted file: ", encrypted_file)
+    for encrypted_line in encrypted_file['result']:
 
-    file_handler.append_to_file(encrypted, input("Append to file: "))
+
+    #encrypted = encrypt_decrypt.decrypt_data(encrypted_file)
+
+    #encrypt_decrypt.decrypt_data(encrypted)
+    #print(encrypted.text)
+
+    #file_handler.append_to_file(encrypted, 'test_cipher.json')
 
 
 
