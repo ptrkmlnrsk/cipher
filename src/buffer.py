@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 @dataclass
 class Text:
@@ -9,9 +10,9 @@ class Text:
 
 class Buffer:
     def __init__(self):
-        self.data: list[Text | str] = []
+        self.data: list[Text | dict[str, Any]] = []
 
-    def add(self, item: Text):
+    def add(self, item: Text | dict[str, Any]) -> None:
         self.data.append(item)
 
     def get_all(self) -> list[Text]:

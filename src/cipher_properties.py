@@ -1,12 +1,11 @@
 from typing import Any
 
 from src.cipher_abc import Cipher
-from buffer import Text
+from src.buffer import Text
 
 class ROT13(Cipher):
 
     def cipher(self, text: str = None, shift: int=13) -> str:
-
         cipher_core_output = []
         for char in text:
             if char.isalpha():
@@ -40,6 +39,7 @@ class ROT13(Cipher):
 
 
 class ROT47(Cipher):
+
     def cipher(self, text: str = None, shift=47) -> str:
         cipher_core_output = []
         for char in text:

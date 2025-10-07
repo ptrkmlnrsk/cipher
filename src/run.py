@@ -1,8 +1,6 @@
-from src.cipher_properties import ROT13
-from file_handler import FileHandler
+from menu import main
 
-
-def main():
+def run():
 
     # tu powinna być fasada jako jedna klasa?
     # zdefiniowac zeby ktos wpisl tu lub tu jakas litere i w zaleznosci od tego robi rota

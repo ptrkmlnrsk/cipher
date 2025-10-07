@@ -1,4 +1,4 @@
-from buffer import Text
+from src.buffer import Text
 
 for text in contents['results']:
     status = text['status']
