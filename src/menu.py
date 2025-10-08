@@ -10,7 +10,7 @@ rot13 = ROT13()
 def menu(command: str) -> None:
     match command:
         case 'read file' | 'read':
-            file = FileHandler.read_file("D:\\repos\\cipher\\test_cipher.json")
+            file = FileHandler.read_file("D:\\repos\\cipher\\test_cipher2.json")
             buffer.add(file)
         case 'encrypt' | 'encrypt data':
             user_input = input("Enter text to encrypt: ")
@@ -20,6 +20,7 @@ def menu(command: str) -> None:
             output_file_path = r"D:\repos\cipher\test_cipher.json"
             user_input = input("Enter text to encrypt: ")
             encrypted = rot13.encrypt_data(input_str=user_input)
+            buffer.add(encrypted)
             file_handler.append_to_file(encrypted, output_file_path)
         case 'quit':
             print("Program shut down")
