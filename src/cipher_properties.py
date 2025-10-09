@@ -18,7 +18,7 @@ class ROT13(Cipher):
         return ''.join(cipher_core_output)
 
 
-    def encrypt_data(self, *, input_str: str) -> Text:
+    def encrypt_data(self, input_str: str) -> Text:
 
         # DataClass ROT13/ROT47:
         encryption_result = self.cipher(input_str)
@@ -52,7 +52,7 @@ class ROT47(Cipher):
 
         return ''.join(cipher_core_output)
 
-    def encrypt_data(self, *, input_str: str) -> Text:
+    def encrypt_data(self, input_str: str) -> Text:
         encryption_result = self.cipher(input_str)
         return Text(text=encryption_result,
                     rot_type='rot47',

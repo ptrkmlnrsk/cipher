@@ -7,8 +7,8 @@ class FileHandler:
     def __init__(self):
         pass
 
-    @staticmethod
-    def read_file(input_file: str) -> dict[str, Any] | None:
+    @staticmethod # głupie pytanie, tu static method jest potrzebne :)
+    def read_file(input_file: str) -> dict | None:
         try:
             with open(input_file, "r") as file:
                 return json.load(file)
