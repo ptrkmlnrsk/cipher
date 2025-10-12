@@ -70,31 +70,3 @@ class ROT47(Cipher):
             raise RuntimeError('Unknown rotation type.')
 
 
-
-    #    return Text(text=data.text,
-    #                        rot_type = data.rot_type,
-    #                        status='decrypted')
-    # def decrypt_data(self, data: Text) -> Text: # cipher object or only text
-    #
-    #     if data.status == 'encrypted':
-    #         if data.rot_type == 'rot13':
-    #             encryption_result = rot13_core(text=data.text,
-    #                                         shift=-13)
-    #             data.text = encryption_result
-    #             #data.rot_type = 'rot13'
-    #             data.status = 'decrypted'
-    #
-    #         elif data.rot_type == 'rot47':
-    #             encryption_result = rot47_core(data.text,
-    #                                            shift=-47)
-    #             data.text = encryption_result
-    #             data.rot_type = 'rot47'
-    #             data.status = 'decrypted'
-    #         else:
-    #             raise RuntimeError('Unknown rotation type.')
-    #
-    #     return Text(text=data.text,
-    #                         rot_type = data.rot_type,
-    #                         status='decrypted')
-
-
