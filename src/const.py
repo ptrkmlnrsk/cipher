@@ -1,0 +1,4 @@
+ROT13_TYPE: str = "rot13"
+ROT47_TYPE: str = "rot47"
+ENCRYPTED: str = "encrypted"
+DECRYPTED: str = "decrypted"

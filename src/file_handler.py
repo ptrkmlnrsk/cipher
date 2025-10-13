@@ -1,13 +1,13 @@
 import json
 from typing import Any
 from dataclasses import asdict
-from buffer import Text
+
 
 class FileHandler:
     def __init__(self):
         pass
 
-    @staticmethod # głupie pytanie, tu static method jest potrzebne :)
+    @staticmethod
     def read_file(input_file: str) -> dict | None:
         try:
             with open(input_file, "r") as file:
@@ -31,11 +31,10 @@ class FileHandler:
         except FileNotFoundError:
             print("File not found")
 
-        data['result'].append(asdict(encrypted_data))
+        data["result"].append(asdict(encrypted_data))
 
         try:
             with open(file_path, "w") as file:
-                json.dump(data, file) # inna struktura jsona
-                # inaczej się dodaje do jsona, wczytać i zapisać
+                json.dump(data, file)
         except IOError:
             print("File has not been updated with new data")

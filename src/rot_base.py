@@ -1,12 +1,11 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from typing import Any
 
-class Cipher(ABC): # Cipher
 
+class ROTBase(ABC):  # Cipher
     @abstractmethod
     def cipher(self):
-       pass
+        pass
 
     @abstractmethod
     def encrypt_data(self, input_str: str) -> str:

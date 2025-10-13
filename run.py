@@ -1,8 +1,6 @@
-import menu
-def run(program):
-
-    program.run() #?????????
+# def main():
+#    program.run()  # ?????????
 
 
-if __name__ == '__main__':
-    run(menu)
+# if __name__ == "__main__":
+#    main()
