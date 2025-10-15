@@ -12,6 +12,7 @@ class FileHandler:
         try:
             with open(input_file, "r") as file:
                 return json.load(file)
+            # TODO check if file is empty
         except FileNotFoundError:
             print("File not found")
 
@@ -28,10 +29,9 @@ class FileHandler:
         try:
             with open(file_path, "r") as file:
                 data = json.load(file)
+                data["result"].append(asdict(encrypted_data))
         except FileNotFoundError:
             print("File not found")
-
-        data["result"].append(asdict(encrypted_data))
 
         try:
             with open(file_path, "w") as file:

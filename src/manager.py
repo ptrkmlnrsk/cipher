@@ -1,87 +1,97 @@
-from buffer import Text
-from typing import Any
-from rot13 import ROT13
-from rot47 import ROT47
-from file_handler import FileHandler
+from .buffer import Text
+from .rot13 import ROT13
+from .rot47 import ROT47
+from .file_handler import FileHandler
+from .const import ROT13_TYPE, ROT47_TYPE
+from .buffer import Buffer
 
 
 class Manager:
     def __init__(
         self,
-        handler: FileHandler = FileHandler,
-        rot13: ROT13 = ROT13,
-        rot47: ROT47 = ROT47,
+        handler: FileHandler = FileHandler(),
+        rot13: ROT13 = ROT13(),
+        rot47: ROT47 = ROT47(),
+        buffer: Buffer = Buffer(),
     ):
         self.file_handler = handler
         self.rot13 = rot13
         self.rot47 = rot47
+        self.buffer = buffer
 
     def read_file(self, file_path: str) -> dict:
         return self.file_handler.read_file(file_path)
 
-    def write_file(self, write_file: str, output_file_path: str):
+    def write_file(self, write_file: str, output_file_path: str) -> None:
         pass
 
-    @staticmethod
-    def append_to_file(encrypted_data: str, file_path: str):
+    def append_to_file(self, encrypted_data: str, file_path: str) -> None:
         pass
 
     def encrypt(self, text_input: str, user_rot_type: str) -> Text:
-        if (
-            user_rot_type == self.rot13
-        ):  # dość sztywne wpisanie rot'a # ROTS = [ROT13, ROT47], ROT13 = 'rot13'
-            return self.rot13.encrypt_data(text_input)
+        if user_rot_type == ROT13_TYPE:
+            return self.rot13.encrypt_data(input_str=text_input)
         else:
-            return self.rot47.encrypt_data(text_input)
+            return self.rot47.encrypt_data(input_str=text_input)
 
     def decrypt(self):
         pass
 
-    def exit_program(self):
-        pass
+    @staticmethod
+    def show_options() -> None:
+        print(
+            "1 - Read file"
+            "\n2 - Encrypt data"
+            "\n3 - Decrypt data"
+            "\n4 - Write file"
+            "\n5 - Append to file"
+            "\n6 - Show buffer"
+            "\n7 - Exit"
+        )
 
-
-class CommandCenter(Manager):
-    def show_options(self) -> None:
-        pass
-
-    def get_choice(self) -> None:
-        pass
-
-    def menu(self, command: str, buffer: Any, cipher_manager: Any) -> None:
+    def menu(self, command: int) -> None:
         match command:
-            case "encrypt" | "encrypt data":
-                user_input = str(input("Enter text to encrypt: "))
-                print("Chose encryption mode: rot13 or rot47")  # 1 / 2
-                user_rot = input("Enter rotation mode: rot13 or rot47")
-                encrypted = self.encrypt(text_input=user_input, user_rot_type=user_rot)
-                buffer.add(encrypted)
+            case 1:  # read file
+                try:
+                    input_file_path = r"D:\repos\cipher\files\test_cipher.json"
+                    file = self.file_handler.read_file(input_file=input_file_path)
+                    self.buffer.add(file)
+                    print("File loaded!")
+                except FileNotFoundError:
+                    print("File not found! Try again!")
 
-            case "decrypt" | "decrypt data":
+            case 2:  # encrypt
+                # 1 / 2
+                user_rot = input("\nChose encryption mode: 1 - rot13\n 2 - rot47")
+                if user_rot == "1":
+                    user_input = str(input("Enter text to encrypt: "))
+                    encrypted = self.encrypt(
+                        text_input=user_input, user_rot_type=ROT13_TYPE
+                    )
+                    self.buffer.add(encrypted)
+                elif user_rot == "2":
+                    user_input = str(input("Enter text to encrypt: "))
+                    encrypted = self.encrypt(
+                        text_input=user_input, user_rot_type=ROT47_TYPE
+                    )
+                    self.buffer.add(encrypted)
+                else:
+                    print("You need to enter 1 or 2")
+
+            case 3:  # decrypt
                 pass
 
-            case "read file" | "read":
-                file = cipher_manager.read_file(file_path="/files/test_cipher.json")
-                # TODO file - scieżka wzgledna i do stałej
-                try:
-                    for existing_text in file["result"]:
-                        buffer.add(Text(**existing_text))
-                except KeyError:
-                    print("File is empty")
+            case 4:  # write file
+                pass
 
-            case "append" | "append to file":
-                output_file_path = r"/files/test_cipher.json"
-                buffer_out = buffer.get_all()
+            case 5:  # append to file
+                output_file_path = r"\files\test_cipher.json"
+                buffer_out = self.buffer.get_all()
                 for text_obj in buffer_out:
-                    # handle not Text obj
-                    self.file_handler.append_to_file(text_obj, output_file_path)
-                # TODO handling bufora jeśli jest tam wczytana treść pliku json
+                    if isinstance(text_obj, Text):
+                        self.file_handler.append_to_file(text_obj, output_file_path)
 
-            case "buffer":
-                print(buffer.data)
+            case 6:  # show buffer data
+                print(self.buffer.data)
 
-            case "quit":
-                print("Program shut down")
-
-    def show_buffer(self) -> None:
-        pass
+            # TODO handling bufora jeśli jest tam wczytana treść pliku json

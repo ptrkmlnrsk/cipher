@@ -1,7 +1,7 @@
-from src.rot_base import ROTBase
-from src.buffer import Text
 from typing import Any
-from const import ROT13_TYPE, ENCRYPTED, DECRYPTED
+from .rot_base import ROTBase
+from .buffer import Text
+from .const import ROT13_TYPE, ENCRYPTED, DECRYPTED
 
 
 class ROT13(ROTBase):
