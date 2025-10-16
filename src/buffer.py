@@ -18,3 +18,9 @@ class Buffer:
 
     def get_all(self) -> list[Text]:
         return self.data
+
+    def is_empty(self) -> bool:
+        return len(self.data) == 0
+
+    def clear(self) -> None:
+        self.data = []

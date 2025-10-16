@@ -7,7 +7,7 @@ def main():
         program_manager.show_options()
         command = int(input("> "))
         program_manager.menu(command)
-        if command == 7:
+        if command == 8:
             break
 
 

@@ -46,14 +46,16 @@ class Manager:
             "\n4 - Write file"
             "\n5 - Append to file"
             "\n6 - Show buffer"
-            "\n7 - Exit"
+            "\n7 - Clear buffer"
+            "\n8 - Exit"
         )
 
     def menu(self, command: int) -> None:
         match command:
             case 1:  # read file
                 try:
-                    input_file_path = r"D:\repos\cipher\files\test_cipher.json"
+                    file_to_read = input("Enter file name: ")
+                    input_file_path = f".\\files\\{file_to_read}.json"
                     file = self.file_handler.read_file(input_file=input_file_path)
                     self.buffer.add(file)
                     print("File loaded!")
@@ -82,16 +84,36 @@ class Manager:
                 pass
 
             case 4:  # write file
-                pass
+                user_input_file_name = input("\nEnter file name: ")
+                output_file_path = f".\\files\\{user_input_file_name}.json"
+                if self.buffer.is_empty() is not True:
+                    try:
+                        self.file_handler.write_file(self.buffer.data, output_file_path)
+                    except IOError:
+                        print("Error occurred while writing file")
+                else:
+                    print(
+                        "File not written. You need to add some data to properly save file"
+                    )
 
             case 5:  # append to file
-                output_file_path = r"\files\test_cipher.json"
-                buffer_out = self.buffer.get_all()
-                for text_obj in buffer_out:
-                    if isinstance(text_obj, Text):
-                        self.file_handler.append_to_file(text_obj, output_file_path)
+                output_file_name = input("\nEnter file name: ")
+                output_file_path = f".\\files\\{output_file_name}.json"
+                try:
+                    buffer_out = self.buffer.get_all()
+                    for text_obj in buffer_out:
+                        if isinstance(text_obj, Text):
+                            self.file_handler.append_to_file(text_obj, output_file_path)
+                except IOError:
+                    print(
+                        "Some problem occurred while appending to file. Might be wrong filepath. Try again!"
+                    )
 
             case 6:  # show buffer data
                 print(self.buffer.data)
+
+            case 7:  # clear buffer
+                self.buffer.clear()
+                print("Buffer cleared! You can add new data to buffer.")
 
             # TODO handling bufora jeśli jest tam wczytana treść pliku json
