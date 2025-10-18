@@ -1,6 +1,7 @@
 import json
 from typing import Any
 from dataclasses import asdict
+from .buffer import Text
 
 
 class FileHandler:
@@ -8,9 +9,14 @@ class FileHandler:
         pass
 
     @staticmethod
-    def read_file(input_file: str) -> dict | None:
+    def read_file(input_file: str) -> list[Text] | None:
         with open(input_file, "r") as file:
-            return json.load(file)
+            data = json.load(file)
+            text_objects = []
+            for text in data["result"]:
+                text_objects.append(Text(**text))
+            return text_objects
+
             # TODO check if file is empty
 
     @staticmethod

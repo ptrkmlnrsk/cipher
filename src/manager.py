@@ -2,7 +2,7 @@ from .buffer import Text
 from .rot13 import ROT13
 from .rot47 import ROT47
 from .file_handler import FileHandler
-from .const import ROT13_TYPE, ROT47_TYPE
+from .const import ROT13_TYPE, ROT47_TYPE, ENCRYPTED
 from .buffer import Buffer
 
 
@@ -19,7 +19,7 @@ class Manager:
         self.rot47 = rot47
         self.buffer = buffer
 
-    def read_file(self, file_path: str) -> dict:
+    def read_file(self, file_path: str) -> list[Text]:
         return self.file_handler.read_file(file_path)
 
     def write_file(self, write_file: str, output_file_path: str) -> None:
@@ -80,21 +80,38 @@ class Manager:
                 else:
                     print("You need to enter 1 or 2")
 
-            case 3:  # decrypt
-                pass
+            case 3:
+                # try: # decrypt
+                if not self.buffer.data:
+                    print("No data to encrypt!")
+                else:
+                    for obj in self.buffer.data:
+                        try:
+                            if obj.status == ENCRYPTED:
+                                if obj.rot_type == ROT13_TYPE:
+                                    self.buffer.data.append(
+                                        self.rot13.decrypt_data(obj)
+                                    )
+                                elif obj.rot_type == ROT47_TYPE:
+                                    self.buffer.data.append(
+                                        self.rot47.decrypt_data(obj)
+                                    )
+                        except AttributeError:
+                            print("Encryption failed")
 
             case 4:  # write file
                 user_input_file_name = input("\nEnter file name: ")
                 output_file_path = f".\\files\\{user_input_file_name}.json"
-                if self.buffer.is_empty() is not True:
+
+                if not self.buffer.data:
+                    print(
+                        "File not written. You need to add some data to properly save file"
+                    )
+                else:
                     try:
                         self.file_handler.write_file(self.buffer.data, output_file_path)
                     except IOError:
                         print("Error occurred while writing file")
-                else:
-                    print(
-                        "File not written. You need to add some data to properly save file"
-                    )
 
             case 5:  # append to file
                 output_file_name = input("\nEnter file name: ")

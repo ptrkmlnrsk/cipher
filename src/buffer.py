@@ -13,14 +13,20 @@ class Buffer:
     def __init__(self):
         self.data: list[Text | dict[str, Any]] = []
 
-    def add(self, item: Text | dict[str, Any]) -> None:
-        self.data.append(item)
+    def add(self, item: Text | dict[str, Any] | list) -> None:
+        if isinstance(item, dict | Text):
+            self.data.append(item)
+        else:
+            self.data.extend(item)
 
     def get_all(self) -> list[Text]:
         return self.data
 
     def is_empty(self) -> bool:
-        return len(self.data) == 0
+        if len(self.data) == 0:
+            return True
+        else:
+            return False
 
     def clear(self) -> None:
         self.data = []

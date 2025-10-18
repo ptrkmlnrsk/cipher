@@ -20,7 +20,7 @@ class ROT13(ROTBase):
         encryption_result = self.cipher(input_str)
         return Text(text=encryption_result, rot_type=ROT13_TYPE, status=ENCRYPTED)
 
-    def decrypt_data(self, data: Any) -> Text:  # TODO brak spojnosci z rot47
+    def decrypt_data(self, data: Any) -> Text:
         if data.status == ENCRYPTED:
             encryption_result = self.cipher(text=data.text, shift=-13)
             return Text(text=encryption_result, rot_type=ROT13_TYPE, status=DECRYPTED)
