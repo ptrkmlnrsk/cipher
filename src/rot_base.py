@@ -4,7 +4,7 @@ from typing import Any
 
 class ROTBase(ABC):  # Cipher
     @abstractmethod
-    def cipher(self):
+    def cipher(self, shift: int, text: str):
         pass
 
     @abstractmethod

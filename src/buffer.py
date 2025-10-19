@@ -14,7 +14,7 @@ class Buffer:
         self.data: list[Text | dict[str, Any]] = []
 
     def add(self, item: Text | dict[str, Any] | list) -> None:
-        if isinstance(item, dict | Text):
+        if isinstance(item, (dict, Text)):
             self.data.append(item)
         else:
             self.data.extend(item)
@@ -23,10 +23,7 @@ class Buffer:
         return self.data
 
     def is_empty(self) -> bool:
-        if len(self.data) == 0:
-            return True
-        else:
-            return False
+        return len(self.data) == 0
 
     def clear(self) -> None:
-        self.data = []
+        self.data.clear()

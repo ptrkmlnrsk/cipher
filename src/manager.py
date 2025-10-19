@@ -31,8 +31,10 @@ class Manager:
     def encrypt(self, text_input: str, user_rot_type: str) -> Text:
         if user_rot_type == ROT13_TYPE:
             return self.rot13.encrypt_data(input_str=text_input)
-        else:
+        elif user_rot_type == ROT47_TYPE:
             return self.rot47.encrypt_data(input_str=text_input)
+        else:
+            raise ValueError(f"Nieznany typ szyfrowania: {user_rot_type}")
 
     def decrypt(self):
         pass
@@ -50,18 +52,20 @@ class Manager:
             "\n8 - Exit"
         )
 
+    def _handle_read_file(self):
+        try:
+            file_to_read = input("Enter file name: ")
+            input_file_path = f".\\files\\{file_to_read}.json"
+            file = self.file_handler.read_file(input_file=input_file_path)
+            self.buffer.add(file)
+            print("File loaded!")
+        except FileNotFoundError:
+            print("File not found! Try again!")
+
     def menu(self, command: int) -> None:
         match command:
             case 1:  # read file
-                try:
-                    file_to_read = input("Enter file name: ")
-                    input_file_path = f".\\files\\{file_to_read}.json"
-                    file = self.file_handler.read_file(input_file=input_file_path)
-                    self.buffer.add(file)
-                    print("File loaded!")
-                except FileNotFoundError:
-                    print("File not found! Try again!")
-
+                self._handle_read_file()
             case 2:  # encrypt
                 # 1 / 2
                 user_rot = input("\nChose encryption mode: 1 - rot13\n 2 - rot47")
