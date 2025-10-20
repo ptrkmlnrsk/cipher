@@ -1,4 +1,5 @@
 from typing import Any
+
 from .rot_base import ROTBase
 from .buffer import Text
 from .const import ROT47_TYPE, ENCRYPTED, DECRYPTED
@@ -11,11 +12,11 @@ class ROT47(ROTBase):
         cipher_core_output = []
         for char in text:
             code = ord(char)
-            if 33 <= code <= 126:  # tylko znaki drukowalne ASCII
+            if 33 <= code <= 126:
                 new_char = chr(33 + ((code - 33 + shift) % 94))
                 cipher_core_output.append(new_char)
             else:
-                cipher_core_output.append(char)  # inne znaki zostają bez zmian
+                cipher_core_output.append(char)
         return "".join(cipher_core_output)
 
     def encrypt_data(self, input_str: str) -> Text:

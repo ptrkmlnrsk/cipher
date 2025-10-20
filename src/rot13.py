@@ -1,4 +1,5 @@
 from typing import Any
+
 from .rot_base import ROTBase
 from .buffer import Text
 from .const import ROT13_TYPE, ENCRYPTED, DECRYPTED

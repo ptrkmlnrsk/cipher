@@ -1,6 +1,7 @@
 import json
 from typing import Any
 from dataclasses import asdict
+
 from .buffer import Text
 
 
@@ -28,8 +29,7 @@ class FileHandler:
     @staticmethod
     def write_file(encrypted_data: Any, output_file_path: str) -> None:
         result = {"result": [asdict(text_obj) for text_obj in encrypted_data]}
-        with open(output_file_path, "w") as file:
-            # TODO TypeError: asdict() should be called on dataclass instances
+        with open(output_file_path, "w", encoding="utf-8") as file:
             json.dump(result, file, indent=2)
 
     @staticmethod
