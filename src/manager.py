@@ -21,18 +21,6 @@ class Manager:
         self.buffer = buffer
         self.base_dir = base_dir
 
-    def read_file(self, file_path: str) -> list[Text]:
-        return self.file_handler.read_file(file_path)
-
-    def encrypt(self, text_input: str, user_rot_type: str) -> Text:
-        # TODO duplicated encryption
-        if user_rot_type == ROT13_TYPE:
-            return self.rot13.encrypt_data(input_str=text_input)
-        elif user_rot_type == ROT47_TYPE:
-            return self.rot47.encrypt_data(input_str=text_input)
-        else:
-            raise ValueError(f"Unknow encryption type: {user_rot_type}")
-
     def _handle_read_file(self, user_read_file: str) -> None:
         file = self.file_handler.read_file(
             input_file=f"{self.base_dir}/{user_read_file}.json"
@@ -40,15 +28,13 @@ class Manager:
         self.buffer.add(file)
 
     def _encrypt(self, encryption_choice: int, text_to_encrypt: str) -> None:
-        if encryption_choice == "1":
-            encrypted = self.encrypt(
-                text_input=text_to_encrypt, user_rot_type=ROT13_TYPE
-            )
+        if encryption_choice == 1:
+            encrypted = self.rot13.encrypt_data(input_str=text_to_encrypt)
+
             self.buffer.add(encrypted)
-        elif encryption_choice == "2":
-            encrypted = self.encrypt(
-                text_input=text_to_encrypt, user_rot_type=ROT47_TYPE
-            )
+        elif encryption_choice == 2:
+            encrypted = self.rot47.encrypt_data(input_str=text_to_encrypt)
+
             self.buffer.add(encrypted)
         else:
             print("You need to enter 1 or 2")
