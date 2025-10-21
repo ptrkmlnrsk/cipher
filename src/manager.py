@@ -2,7 +2,7 @@ from .buffer import Text
 from .rot13 import ROT13
 from .rot47 import ROT47
 from .file_handler import FileHandler
-from .const import ROT13_TYPE, ROT47_TYPE, ENCRYPTED
+from .const import ROT13_TYPE, ROT47_TYPE, ENCRYPTED, BASE_DIR
 from .buffer import Buffer
 
 
@@ -13,7 +13,7 @@ class Manager:
         rot13: ROT13 = ROT13(),
         rot47: ROT47 = ROT47(),
         buffer: Buffer = Buffer(),
-        base_dir: str = "",
+        base_dir: str = BASE_DIR,
     ):
         self.file_handler = handler
         self.rot13 = rot13

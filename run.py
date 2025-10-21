@@ -2,7 +2,7 @@ from src.manager import Manager
 
 
 def main():
-    program_manager = Manager(base_dir="./files")
+    program_manager = Manager()
     while True:
         program_manager.show_options()
         command = int(input("> "))
