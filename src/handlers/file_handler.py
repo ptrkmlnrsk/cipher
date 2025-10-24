@@ -2,7 +2,7 @@ import json
 from typing import Any
 from dataclasses import asdict
 
-from .buffer import Text
+from src.helpers.buffer import Text
 
 
 class FileHandler:

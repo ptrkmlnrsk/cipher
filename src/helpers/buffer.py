@@ -1,12 +1,5 @@
-from dataclasses import dataclass
+from src.helpers.text_dataclass import Text
 from typing import Any
-
-
-@dataclass
-class Text:
-    text: str
-    rot_type: str
-    status: str
 
 
 class Buffer:

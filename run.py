@@ -1,4 +1,4 @@
-from src.manager import Menu
+from src.menus.context_menu import Menu
 
 
 def main():
