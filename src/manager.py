@@ -21,13 +21,13 @@ class Manager:
         self.buffer = buffer
         self.base_dir = base_dir
 
-    def _handle_read_file(self, user_read_file: str) -> None:
+    def handle_read_file(self, user_read_file: str) -> None:
         file = self.file_handler.read_file(
             input_file=f"{self.base_dir}/{user_read_file}.json"
         )
         self.buffer.add(file)
 
-    def _encrypt(self, encryption_choice: int, text_to_encrypt: str) -> None:
+    def encrypt(self, encryption_choice: int, text_to_encrypt: str) -> None:
         if encryption_choice == 1:
             encrypted = self.rot13.encrypt_data(input_str=text_to_encrypt)
 
@@ -39,7 +39,7 @@ class Manager:
         else:
             print("You need to enter 1 or 2")
 
-    def _decrypt(self) -> None:
+    def decrypt(self) -> None:
         if not self.buffer.data:
             print("No data to encrypt!")
         else:
@@ -53,7 +53,7 @@ class Manager:
                 except AttributeError:
                     print("Encryption failed")
 
-    def _handle_write_file(self, output_filename: str) -> None:
+    def handle_write_file(self, output_filename: str) -> None:
         if not self.buffer.data:
             print("File not written. You need to add some data to properly save file")
         else:
@@ -65,7 +65,7 @@ class Manager:
             except IOError:
                 print("Error occurred while writing file")
 
-    def _handle_append_to_file(self, file_to_append_to: str) -> None:
+    def handle_append_to_file(self, file_to_append_to: str) -> None:
         try:
             buffer_out = self.buffer.get_all()
             for text_obj in buffer_out:
@@ -77,6 +77,11 @@ class Manager:
             print(
                 "Some problem occurred while appending to file. Might be wrong filepath. Try again!"
             )
+
+
+class Menu:
+    def __init__(self):
+        self.manager = Manager()
 
     @staticmethod
     def show_options() -> None:
@@ -91,25 +96,27 @@ class Manager:
             "\n8 - Exit"
         )
 
-    def menu(self, command: int) -> None:
+    def menu_handler(self, command: int) -> None:
         match command:
             case 1:
                 input_to_read = input("Enter file name: ")
-                self._handle_read_file(input_to_read)
+                self.manager.handle_read_file(input_to_read)
             case 2:
-                user_encryption_choice = int(input("Enter encryption type - 1 or 2: "))
+                user_encryption_choice = int(
+                    input("Enter encryption type - 1 (rot13) or 2 (rot47): ")
+                )
                 user_text_to_encrypt = input("Enter text: ")
-                self._encrypt(user_encryption_choice, user_text_to_encrypt)
+                self.manager.encrypt(user_encryption_choice, user_text_to_encrypt)
             case 3:
-                self._decrypt()
+                self.manager.decrypt()
             case 4:
                 user_output_filename = input("Enter output file name: ")
-                self._handle_write_file(user_output_filename)
+                self.manager.handle_write_file(user_output_filename)
             case 5:
                 input_file_to_append_to = input("Enter file name: ")
-                self._handle_append_to_file(input_file_to_append_to)
+                self.manager.handle_append_to_file(input_file_to_append_to)
             case 6:
-                print(self.buffer.data)
+                print(self.manager.buffer.data)
             case 7:
-                self.buffer.clear()
+                self.manager.buffer.clear()
                 print("Buffer cleared! You can add new data to buffer.")

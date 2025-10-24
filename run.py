@@ -1,12 +1,12 @@
-from src.manager import Manager
+from src.manager import Menu
 
 
 def main():
-    program_manager = Manager()
+    menu = Menu()
     while True:
-        program_manager.show_options()
+        menu.show_options()
         command = int(input("> "))
-        program_manager.menu(command)
+        menu.menu_handler(command)
         if command == 8:
             break
 
