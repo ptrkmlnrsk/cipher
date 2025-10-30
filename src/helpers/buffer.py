@@ -1,4 +1,4 @@
-from src.helpers.text_dataclass import Text
+from src.helpers.text import Text
 from typing import Any
 
 
