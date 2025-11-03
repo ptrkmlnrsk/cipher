@@ -36,8 +36,6 @@ class Manager:
             encrypted = self.rot47.encrypt_data(input_str=text_to_encrypt)
 
             self.buffer.add(encrypted)
-        else:
-            print("You need to enter 1 or 2")
 
     def decrypt(self) -> None:
         if not self.buffer.data:

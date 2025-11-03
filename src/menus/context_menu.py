@@ -36,8 +36,11 @@ class Menu:
                 user_encryption_choice = int(
                     input("Enter encryption type - 1 (rot13) or 2 (rot47): ")
                 )
-                user_text_to_encrypt = self._prompt_nonempty("Enter text: ")
-                self.manager.encrypt(user_encryption_choice, user_text_to_encrypt)
+                if user_encryption_choice == 1 or user_encryption_choice == 2:
+                    user_text_to_encrypt = self._prompt_nonempty("Enter text: ")
+                    self.manager.encrypt(user_encryption_choice, user_text_to_encrypt)
+                else:
+                    print("You need to enter 1 or 2")
             case 3:
                 self.manager.decrypt()
             case 4:
