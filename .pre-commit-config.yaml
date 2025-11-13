@@ -14,7 +14,7 @@ repos:
     rev: 1.8.6
     hooks:
     - id: bandit
-      args: [ "-c", "bandit.yaml", "-q"]
+      args: [ "-c", "-q"]
       files: ^src/.*\.py$
       exclude: >
         (^src/(tests?|unit_tests?)/)|
