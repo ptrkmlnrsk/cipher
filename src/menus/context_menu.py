@@ -2,8 +2,8 @@ from src.managers.manager import Manager
 
 
 class Menu:
-    def __init__(self):
-        self.manager = Manager()
+    def __init__(self, manager=None):
+        self.manager = manager or Manager()
 
     @staticmethod
     def _prompt_nonempty(prompt: str) -> str:
@@ -11,6 +11,15 @@ class Menu:
             value = input(prompt).strip()
             if value == "":
                 print("Please enter a none empty string")
+            else:
+                return value
+
+    @staticmethod
+    def _validate_input(prompt, options):
+        while True:
+            value = input(prompt)
+            if value not in options:
+                print(f"Invalid option, choose one in : {' '.join(options)}")
             else:
                 return value
 
@@ -33,14 +42,12 @@ class Menu:
                 input_to_read = str(input("Enter file name: "))
                 self.manager.handle_read_file(input_to_read)
             case 2:
-                user_encryption_choice = int(
-                    input("Enter encryption type - 1 (rot13) or 2 (rot47): ")
+                user_encryption_choice = self._validate_input(
+                    prompt="Enter encryption type - 1 (rot13) or 2 (rot47): ",
+                    options=["1", "2"],
                 )
-                if user_encryption_choice == 1 or user_encryption_choice == 2:
-                    user_text_to_encrypt = self._prompt_nonempty("Enter text: ")
-                    self.manager.encrypt(user_encryption_choice, user_text_to_encrypt)
-                else:
-                    print("You need to enter 1 or 2")
+                user_text_to_encrypt = self._prompt_nonempty("Enter text: ")
+                self.manager.encrypt(int(user_encryption_choice), user_text_to_encrypt)
             case 3:
                 self.manager.decrypt()
             case 4:

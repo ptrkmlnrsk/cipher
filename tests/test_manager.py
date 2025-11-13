@@ -1,8 +1,8 @@
 import os
 import pytest
 import json
-from unittest.mock import Mock
 
+from unittest.mock import Mock
 from managers.manager import Manager
 from helpers.text import Text
 from unittest.mock import patch
@@ -39,10 +39,6 @@ def test_encrypt_rot13(manager, to_encrypt, encryption_result):
     assert manager.buffer.data[0].text == encryption_result
 
 
-# ktore podejscie lepsze? rozbicie na dwie funkcje i parametryzacja
-# czy wsadzenie w jedna funkcje i parametryzacja jak w 'test_decrypt'?
-
-
 @pytest.mark.parametrize(
     "to_encrypt, encryption_result", [("Lubie placki", "{F3:6 A=24<:"), ("", "")]
 )
@@ -60,17 +56,24 @@ def test_printing_encrypt_to_enter_proper_number_corresponding_with_type_of_ciph
     mock_print.assert_called_with("You need to enter 1 or 2!")
 
 
-# TODO rozbić na 2 funkcje testowe
+@pytest.mark.parametrize(
+    "to_decrypt, rot_type, encryption_result",
+    [("Cngelx pbf gnz", "rot13", "Patryk cos tam"), ("", "rot13", "")],
+)
+def test_decrypt_rot13(manager, to_decrypt, rot_type, encryption_result):
+    manager.buffer.add([Text(text=to_decrypt, rot_type=rot_type, status="encrypted")])
+    manager.decrypt()
+    assert manager.buffer.data[1].text == encryption_result
+
+
 @pytest.mark.parametrize(
     "to_decrypt, rot_type, encryption_result",
     [
-        ("Cngelx pbf gnz", "rot13", "Patryk cos tam"),
         ("{F3:6 A=24<:", "rot47", "Lubie placki"),
-        ("", "rot13", ""),
         ("", "rot47", ""),
     ],
 )
-def test_decrypt(manager, to_decrypt, rot_type, encryption_result):
+def test_decrypt_rot47(manager, to_decrypt, rot_type, encryption_result):
     manager.buffer.add([Text(text=to_decrypt, rot_type=rot_type, status="encrypted")])
     manager.decrypt()
     assert manager.buffer.data[1].text == encryption_result
