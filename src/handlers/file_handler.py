@@ -3,6 +3,7 @@ from typing import Any
 from dataclasses import asdict
 
 from src.helpers.text import Text
+from src.helpers.buffer import Buffer
 
 
 class FileHandler:
@@ -37,8 +38,8 @@ class FileHandler:
         with open(file_path, "r") as file:
             data = json.load(file)
 
-        data["result"] += [asdict(text_obj) for text_obj in encrypted_data]
-        # TODO dorobić funkcje pomocniczą w bufferze
+        # data["result"] += [asdict(text_obj) for text_obj in encrypted_data]
+        data = Buffer.data_append_helper(data, encrypted_data)
 
         with open(file_path, "w") as file:
             json.dump(data, file, indent=2)

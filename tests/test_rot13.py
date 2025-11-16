@@ -15,21 +15,21 @@ def t_rot13():
     [("Patryk cos tam", "Cngelx pbf gnz"), ("abc", "nop"), ("ABC", "NOP")],
 )
 def test_cipher_rot13(t_rot13, plain, encrypted):
-    assert t_rot13.cipher(shift=13, text=plain) == encrypted  # nosec B101
+    assert t_rot13.cipher(shift=13, text=plain) == encrypted
 
 
 def test_encrypt_data(t_rot13):
     check = t_rot13.encrypt_data("Patryk cos tam")
-    assert isinstance(check, Text)  # nosec B101
-    assert check.text == "Cngelx pbf gnz"  # nosec B101
-    assert check.rot_type == ROT13_TYPE  # nosec B101
-    assert check.status == ENCRYPTED  # nosec B101
+    assert isinstance(check, Text)
+    assert check.text == "Cngelx pbf gnz"
+    assert check.rot_type == ROT13_TYPE
+    assert check.status == ENCRYPTED
 
 
 def test_decrypt_data(t_rot13):
     text_obj = Text(text="Cngelx pbf gnz", rot_type="rot13", status="encrypted")
     check = t_rot13.decrypt_data(text_obj)
-    assert isinstance(check, Text)  # nosec B101
-    assert check.text == "Patryk cos tam"  # nosec B101
-    assert check.rot_type == ROT13_TYPE  # nosec B101
-    assert check.status == DECRYPTED  # nosec B101
+    assert isinstance(check, Text)
+    assert check.text == "Patryk cos tam"
+    assert check.rot_type == ROT13_TYPE
+    assert check.status == DECRYPTED

@@ -20,7 +20,7 @@ def test_read_file(file_handler):
 
     tests_list = file_handler.read_file("test.json")
 
-    assert isinstance(tests_list[0], Text)  # nosec B101
+    assert isinstance(tests_list[0], Text)
     assert tests_list[0] == Text(text="test2", rot_type="rot47", status="decrypted")  # nosec B101
 
     os.remove("test.json")
@@ -33,7 +33,7 @@ def test_write_file():
     ]
     FileHandler.write_file(test_data_to_save, "test.json")
 
-    assert os.path.exists("test.json")  # nosec B101
+    assert os.path.exists("test.json")
     os.remove("test.json")
 
 
@@ -54,6 +54,6 @@ def test_append_to_file():
             {"text": "test2", "rot_type": "rot47", "status": "decrypted"},
             {"text": "E6DE", "rot_type": "rot47", "status": "encrypted"},
         ]
-    }  # nosec B101
+    }
 
     os.remove("test.json")

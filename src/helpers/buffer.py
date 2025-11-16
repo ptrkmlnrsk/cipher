@@ -1,5 +1,6 @@
 from src.helpers.text import Text
 from typing import Any
+from dataclasses import asdict
 
 
 class Buffer:
@@ -17,3 +18,10 @@ class Buffer:
 
     def clear(self) -> None:
         self.data.clear()
+
+    @staticmethod
+    def data_append_helper(data_to_append_to: dict, data_to_append: Any) -> dict:
+        data_to_append_to["result"].extend(
+            [asdict(text_obj) for text_obj in data_to_append]
+        )
+        return data_to_append_to

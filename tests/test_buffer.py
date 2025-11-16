@@ -15,15 +15,14 @@ def test_buffer_add(buffer):
     )
     buffer.add(Text(text="test2", rot_type="rot47", status="decrypted"))
 
-    assert len(buffer.data) == 2  # nosec B101
+    assert len(buffer.data) == 2
 
 
 def test_buffer_get_all(buffer):
-    assert buffer.get_all() == []  # nosec B101
-    # bandit???
+    assert buffer.get_all() == []
 
 
 def test_buffer_is_cleared(buffer):
     buffer.data.clear()
 
-    assert buffer.data == []  # nosec B101
+    assert buffer.data == []
