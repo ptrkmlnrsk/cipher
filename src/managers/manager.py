@@ -1,4 +1,3 @@
-from src.helpers.buffer import Text
 from src.rots.rot13 import ROT13
 from src.rots.rot47 import ROT47
 from src.handlers.file_handler import FileHandler
@@ -9,16 +8,16 @@ from src.helpers.buffer import Buffer
 class Manager:
     def __init__(
         self,
-        handler: FileHandler = FileHandler(),
-        rot13: ROT13 = ROT13(),
-        rot47: ROT47 = ROT47(),
-        buffer: Buffer = Buffer(),
+        handler: FileHandler = None,
+        rot13: ROT13 = None,
+        rot47: ROT47 = None,
+        buffer: Buffer = None,
         base_dir: str = BASE_DIR,
     ):
-        self.file_handler = handler
-        self.rot13 = rot13
-        self.rot47 = rot47
-        self.buffer = buffer
+        self.file_handler = handler or FileHandler()
+        self.rot13 = rot13 or ROT13()
+        self.rot47 = rot47 or ROT47()
+        self.buffer = buffer or Buffer()
         self.base_dir = base_dir
 
     def handle_read_file(self, user_read_file: str) -> None:
@@ -37,7 +36,7 @@ class Manager:
 
             self.buffer.add(encrypted)
         else:
-            print("You need to enter 1 or 2")
+            print("You need to enter 1 or 2!")
 
     def decrypt(self) -> None:
         if not self.buffer.data:
@@ -59,7 +58,7 @@ class Manager:
         else:
             try:
                 self.file_handler.write_file(
-                    self.buffer.data,
+                    self.buffer.get_list_of_dicts(),
                     output_file_path=f"{self.base_dir}/{output_filename}.json",
                 )
             except IOError:
@@ -67,13 +66,11 @@ class Manager:
 
     def handle_append_to_file(self, file_to_append_to: str) -> None:
         try:
-            buffer_out = self.buffer.get_all()
-            for text_obj in buffer_out:
-                if isinstance(text_obj, Text):
-                    self.file_handler.append_to_file(
-                        text_obj, file_path=f"{self.base_dir}/{file_to_append_to}.json"
-                    )
-        except IOError:
-            print(
-                "Some problem occurred while appending to file. Might be wrong filepath. Try again!"
+            buffer_out = self.buffer.get_list_of_dicts()
+            self.file_handler.append_to_file(
+                buffer_out, file_path=f"{self.base_dir}/{file_to_append_to}.json"
             )
+        except IOError as e:
+            raise IOError(
+                "Some problem occurred while appending to file. Might be wrong filepath. Try again!"
+            ) from e

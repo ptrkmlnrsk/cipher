@@ -1,14 +1,10 @@
 import json
 from typing import Any
-from dataclasses import asdict
 
-from src.helpers.buffer import Text
+from src.helpers.text import Text
 
 
 class FileHandler:
-    def __init__(self):
-        pass
-
     @staticmethod
     def read_file(input_file: str) -> list[Text] | None:
         try:
@@ -27,17 +23,18 @@ class FileHandler:
             return []
 
     @staticmethod
-    def write_file(encrypted_data: Any, output_file_path: str) -> None:
-        result = {"result": [asdict(text_obj) for text_obj in encrypted_data]}
+    def write_file(encrypted_data: list[dict[str, Any]], output_file_path: str) -> None:
+        result = {"result": encrypted_data}
+
         with open(output_file_path, "w", encoding="utf-8") as file:
             json.dump(result, file, indent=2)
 
     @staticmethod
-    def append_to_file(encrypted_data: Any, file_path: str) -> None:
+    def append_to_file(encrypted_data: list[dict[str, Any]], file_path: str) -> None:
         with open(file_path, "r") as file:
             data = json.load(file)
 
-        data["result"].append(asdict(encrypted_data))
+        data["result"] += encrypted_data
 
         with open(file_path, "w") as file:
             json.dump(data, file, indent=2)
