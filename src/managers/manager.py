@@ -35,6 +35,8 @@ class Manager:
             encrypted = self.rot47.encrypt_data(input_str=text_to_encrypt)
 
             self.buffer.add(encrypted)
+        else:
+            print("You need to enter 1 or 2!")
 
     def decrypt(self) -> None:
         if not self.buffer.data:
@@ -56,7 +58,7 @@ class Manager:
         else:
             try:
                 self.file_handler.write_file(
-                    self.buffer.data,
+                    self.buffer.get_list_of_dicts(),
                     output_file_path=f"{self.base_dir}/{output_filename}.json",
                 )
             except IOError:
@@ -64,7 +66,7 @@ class Manager:
 
     def handle_append_to_file(self, file_to_append_to: str) -> None:
         try:
-            buffer_out = self.buffer.get_all()
+            buffer_out = self.buffer.get_list_of_dicts()
             self.file_handler.append_to_file(
                 buffer_out, file_path=f"{self.base_dir}/{file_to_append_to}.json"
             )

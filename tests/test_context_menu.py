@@ -47,7 +47,7 @@ def test_validate_output(fake_input, options, expected):
 
     if len(fake_input) > 1:
         mock_print.assert_called_once_with(
-            f"Invalid option, choose one in {' '.join(options)}"
+            f"Invalid option, choose one in : {' '.join(options)}"
         )
 
 

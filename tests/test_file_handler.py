@@ -28,8 +28,8 @@ def test_read_file(file_handler):
 
 def test_write_file():
     test_data_to_save = [
-        Text(text="grfg", rot_type="rot13", status="encrypted"),
-        Text(text="E6DE", rot_type="rot47", status="encrypted"),
+        {"text": "grfg", "rot_type": "rot13", "status": "encrypted"},
+        {"text": "E6DE", "rot_type": "rot47", "status": "encrypted"},
     ]
     FileHandler.write_file(test_data_to_save, "test.json")
 
@@ -43,7 +43,7 @@ def test_append_to_file():
             {"result": [{"text": "test2", "rot_type": "rot47", "status": "decrypted"}]},
             f,
         )
-    test_data_to_append = Text(text="E6DE", rot_type="rot47", status="encrypted")
+    test_data_to_append = [{"text": "E6DE", "rot_type": "rot47", "status": "encrypted"}]
     FileHandler.append_to_file(test_data_to_append, "test.json")
 
     with open("test.json", "r", encoding="utf-8") as file:

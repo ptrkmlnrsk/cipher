@@ -16,12 +16,8 @@ class Buffer:
     def get_all(self) -> list[Text]:
         return self.data
 
+    def get_list_of_dicts(self) -> list[dict[str, Any]]:
+        return [asdict(text_obj) for text_obj in self.data]
+
     def clear(self) -> None:
         self.data.clear()
-
-    @staticmethod
-    def data_append_helper(data_to_append_to: dict, data_to_append: Any) -> dict:
-        data_to_append_to["result"].extend(
-            [asdict(text_obj) for text_obj in data_to_append]
-        )
-        return data_to_append_to
